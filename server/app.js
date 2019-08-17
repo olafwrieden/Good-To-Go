@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
     .send('No data to display here. Give /info or /dev/info a try :)');
 });
 
+// currently mocked out for front-end testing
 app.get('/info', (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
@@ -36,6 +37,7 @@ app.get('/info', (req, res) => {
   res.status(200).send(response);
 });
 
+// live endpoint, will replace mocked endpoint when deployed
 app.get('/dev/info', async (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
@@ -48,20 +50,21 @@ app.get('/dev/info', async (req, res) => {
     return res.status(400).send('invalid longitude');
   }
 
-  const API_KEY = process.env.OPEN_WEATHER_KEY;
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+  const API_KEY = process.env.WORLD_WEATHER_KEY;
+  const url = `https://api.worldweatheronline.com/premium/v1/marine.ashx?q=${lat},${lon}&key=${API_KEY}&format=json&tp=24`;
 
   try {
-    const {data} = await axios.get(url);
+    const data = await axios.get(url);
+    const weather = data.data.data.weather[0];
 
     const response = {
       weather: {
-        temp_high: data.main.temp_max,
-        temp_low: data.main.temp_min,
-        temp_current: data.main.temp,
-        wind_speed: data.wind.speed,
-        wind_dir: d2d(data.wind.deg),
-        text_description: data.weather[0].description,
+        temp_high: weather.maxtempC,
+        temp_low: weather.mintempC,
+        temp_current: weather.hourly[0].tempC,
+        wind_speed: weather.hourly[0].windspeedKmph,
+        wind_dir: weather.hourly[0].winddir16Point,
+        text_description: weather.hourly[0].weatherDesc[0].value,
       },
     };
 
