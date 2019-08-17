@@ -67,4 +67,4 @@ app.get('/dev/info', async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(port, () => console.log(`API Server running on port: ${port}`));
