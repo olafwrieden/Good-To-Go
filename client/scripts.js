@@ -1,4 +1,4 @@
-new google.maps.event.addListener(map, 'click', function (event) {
+google.maps.event.addListener(map, 'click', function (event) {
 
     // marker = new google.maps.Marker({
     //     position: event.latLng,
@@ -6,7 +6,15 @@ new google.maps.event.addListener(map, 'click', function (event) {
     // });
 
     let lat = event.latLng.lat();
-    let lng = (event.latLng.lng());
-    console.log(lat, lng);
+    let lon = (event.latLng.lng());
+    console.log(lat, lon);
+
+    fetch(`http://localhost:3000/info?lat=${lat}&lon=${lon}`).then(response => {
+        if (response.status !== 200) {
+            console.log("There was a problem, status code: " + response.status);
+            return;
+        }
+        response.json().then(data => console.log);
+    }).catch(err => console.log);
 
 });
