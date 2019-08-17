@@ -38,6 +38,20 @@ app.get('/info', (req, res) => {
       swell_height: 10.3, // m
       water_temp: 16.3,
     },
+    coastguard_stations: [
+      {
+        station: 'Auckland',
+        lat: -36.8,
+        lon: 174.8,
+        distance: 2.5, // km
+      },
+      {
+        station: 'Tauranga',
+        lat: -32.8,
+        lon: 154.8,
+        distance: 25.6, // km
+      },
+    ],
   };
 
   res.status(200).send(response);
