@@ -9,6 +9,7 @@
 .drawer-button {
     float: right;
     outline: none !important;
+    padding: 10px;
 }
 
 .drawer-title-location {
