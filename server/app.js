@@ -1,7 +1,10 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const axios = require('axios');
-const cors = require('cors');
+const coastguard = require("./coastguard.json");
+const express = require("express");
+const dotenv = require("dotenv");
+const axios = require("axios");
+const d2d = require("degrees-to-direction");
+const geolib = require("geolib");
+const cors = require('cors')
 
 dotenv.config();
 
@@ -11,14 +14,15 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+// Default Route, No Data!
+app.get("/", (req, res) => {
   res
     .status(200)
-    .send('No data to display here. Give /info or /dev/info a try :)');
+    .send("No data to display here. Give /info or /dev/info a try :)");
 });
 
-// currently mocked out for front-end testing
-app.get('/info', (req, res) => {
+// Returns the weather info for the given coordinates. TODO: Switch Over To Live Data
+app.get("/info", (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
 
@@ -62,12 +66,16 @@ app.get('/dev/info', async (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
 
+  if (lat == null || lon == null) {
+    return res.status(400).send("Error: Please provide a lat & lon parameters");
+  }
+
   if (Number(lat) < -86 || Number(lat) > 86) {
-    return res.status(400).send('invalid latitude');
+    return res.status(400).send("invalid latitude");
   }
 
   if (Number(lon) < -180 || Number(lon) > 180) {
-    return res.status(400).send('invalid longitude');
+    return res.status(400).send("invalid longitude");
   }
 
   const API_KEY = process.env.WORLD_WEATHER_KEY;
@@ -94,6 +102,7 @@ app.get('/dev/info', async (req, res) => {
         swell_height: Number(current.swellHeight_m),
         water_temp: Number(current.waterTemp_C),
       },
+      coastguard_stations: await closestStation({ lat, lon })
     };
 
     return res.status(200).send(response);
@@ -101,5 +110,32 @@ app.get('/dev/info', async (req, res) => {
     return res.status(502).send(error.message);
   }
 });
+
+// Location of Coastguard Stations
+app.get("/coastguard", (req, res) => {
+  res.status(200).send(coastguard);
+});
+
+// Get's Coastguard Stations Closest to the Coordinates.
+const closestStation = async location => {
+  coastguard.forEach(station => {
+    // Get Distance
+    let distance = geolib.getDistance(
+      { latitude: location.lat, longitude: location.lon },
+      { latitude: station.lat, longitude: station.lon }
+    );
+    // Append it to Object
+    station["distance"] = distance;
+  });
+
+  // Sort by Nearest
+  coastguard.sort(function(a, b) {
+    if (a.distance < b.distance) return -1;
+    if (a.distance > b.distance) return 1;
+    return 0;
+  });
+
+  return coastguard.slice(0, 2);
+};
 
 app.listen(port, () => console.log(`API Server running on port: ${port}`));

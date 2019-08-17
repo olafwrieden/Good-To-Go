@@ -1,0 +1,57 @@
+[
+  {
+    "station": "Houhora",
+    "lat": -34.791007,
+    "lon": 173.10258
+  },
+  {
+    "station": "Auckland",
+    "lat": -36.846988,
+    "lon": 174.788822
+  },
+  {
+    "station": "Maraetai",
+    "lat": -36.881155,
+    "lon": 175.041697
+  },
+  {
+    "station": "Titirangi",
+    "lat": -36.949373,
+    "lon": 174.665464
+  },
+  {
+    "station": "Papakura",
+    "lat": -37.054025,
+    "lon": 174.932257
+  },
+  {
+    "station": "Howick",
+    "lat": -36.893162,
+    "lon": 174.942294
+  },
+  {
+    "station": "North Shore",
+    "lat": -36.713279,
+    "lon": 174.749561
+  },
+  {
+    "station": "Hibiscus",
+    "lat": -36.625238,
+    "lon": 174.74023
+  },
+  {
+    "station": "Thames",
+    "lat": -37.150474,
+    "lon": 175.559271
+  },
+  {
+    "station": "Whitianga",
+    "lat": -36.838552,
+    "lon": 175.703441
+  },
+  {
+    "station": "Whangamata",
+    "lat": -37.197263,
+    "lon": 175.867759
+  }
+]
