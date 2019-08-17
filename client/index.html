@@ -26,7 +26,7 @@
 
         <link
             rel="stylesheet"
-            href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
+            href="https://code.getmdl.io/1.3.0/material.teal-cyan.min.css"
         />
         <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css" />
@@ -69,12 +69,102 @@
                     <i class="material-icons">close</i>
                 </button>
             </span>
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-            </nav>
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">
+                            Temperature
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Apparent Temperature
+                        </td>
+                        <td id="temp_apparent"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Current Temperature
+                        </td>
+                        <td id="temp_current"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Temperature High
+                        </td>
+                        <td id="temp_high"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Temperature Low
+                        </td>
+                        <td id="temp_low"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">
+                            Weather
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Description
+                        </td>
+                        <td id="text_description"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Rainfall
+                        </td>
+                        <td id="rainfall"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Wind Direction
+                        </td>
+                        <td id="wind_dir"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Wind Speed
+                        </td>
+                        <td id="wind_speed"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">
+                            Marine
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Swell Height
+                        </td>
+                        <td id="swell_height"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Water Temperature
+                        </td>
+                        <td id="water_temp"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <main class="mdl-layout__content">
             <body>
