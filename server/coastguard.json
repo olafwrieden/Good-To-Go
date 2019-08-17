@@ -53,5 +53,200 @@
     "station": "Whangamata",
     "lat": -37.197263,
     "lon": 175.867759
+  },
+  {
+    "station": "Bay of Islands Coastguard",
+    "lat": -35.261529,
+    "lon": 173.918949
+  },
+  {
+    "station": "Raglan Coastguard",
+    "lat": -37.794255,
+    "lon": 174.880066
+  },
+  {
+    "station": "Tauranga Coastguard",
+    "lat": -37.661885,
+    "lon": 176.168559
+  },
+  {
+    "station": "Gisborne Coastguard",
+    "lat": -38.672195,
+    "lon": 178.02962
+  },
+  {
+    "station": "Hawke's Bay Coastguard",
+    "lat": -39.481848,
+    "lon": 176.890242
+  },
+  {
+    "station": "Taranaki Coastguard",
+    "lat": -39.058648,
+    "lon": 174.050657
+  },
+  {
+    "station": "Wanganui Coastguard",
+    "lat": -39.945296,
+    "lon": 174.998623
+  },
+  {
+    "station": "Kapiti Coastguard",
+    "lat": -40.890936,
+    "lon": 174.980649
+  },
+  {
+    "station": "Wellington Coastguard",
+    "lat": -41.310807,
+    "lon": 174.79821
+  },
+  {
+    "station": "Nelson Coastguard",
+    "lat": -41.263687,
+    "lon": 173.268788
+  },
+  {
+    "station": "Kaikoura Coastguard",
+    "lat": -42.423575,
+    "lon": 173.681266
+  },
+  {
+    "station": "West Coast Coastguard",
+    "lat": -42.452962,
+    "lon": 171.196852
+  },
+  {
+    "station": "Canterbury North Coastguard",
+    "lat": -43.380671,
+    "lon": 172.660359
+  },
+  {
+    "station": "Canterbury Coastguard",
+    "lat": -43.608305,
+    "lon": 172.70974
+  },
+  {
+    "station": "Canterbury Coastguard",
+    "lat": -43.608305,
+    "lon": 172.70974
+  },
+  {
+    "station": "Dunedin Coastguard",
+    "lat": -45.840304,
+    "lon": 170.650801
+  },
+  {
+    "station": "Bluff Coastguard",
+    "lat": -46.593328,
+    "lon": 168.325281
+  },
+  {
+    "station": "Sumner Lifeboat Coastguard",
+    "lat": -43.571417,
+    "lon": 172.771572
+  },
+  {
+    "station": "Queenstown Coastguard",
+    "lat": -45.018674,
+    "lon": 168.714729
+  },
+  {
+    "station": "Lake Brunner Coastguard",
+    "lat": -42.572156,
+    "lon": 171.482991
+  },
+  {
+    "station": "Marlbolrough Coastguard",
+    "lat": -41.288673,
+    "lon": 174.010788
+  },
+  {
+    "station": "Auckland Air Patrol",
+    "lat": -37.034329,
+    "lon": 174.973737
+  },
+  {
+    "station": "Hokianga Coastguard",
+    "lat": -35.517103,
+    "lon": 173.389997
+  },
+  {
+    "station": "Kaipara Coastguard",
+    "lat": -36.6772,
+    "lon": 174.444667
+  },
+  {
+    "station": "Lake Taupo Coastguard",
+    "lat": -38.686905,
+    "lon": 176.064249
+  },
+  {
+    "station": "Lake Taupo Coastguard",
+    "lat": -38.686905,
+    "lon": 176.064249
+  },
+  {
+    "station": "Maketu Coastguard",
+    "lat": -37.754505,
+    "lon": 176.456314
+  },
+  {
+    "station": "Mana Coastguard",
+    "lat": -41.099297,
+    "lon": 174.866871
+  },
+  {
+    "station": "Manawatu Coastguard",
+    "lat": -40.471989,
+    "lon": 175.237589
+  },
+  {
+    "station": "Opotiki Coastguard",
+    "lat": -38.001545,
+    "lon": 177.282367
+  },
+  {
+    "station": "Rotorua Lakes Coastguard",
+    "lat": -38.129323,
+    "lon": 176.250252
+  },
+  {
+    "station": "Turangi Coastguard",
+    "lat": -38.95366,
+    "lon": 175.747418
+  },
+  {
+    "station": "Tutukaka Coastguard",
+    "lat": -35.610129,
+    "lon": 174.528925
+  },
+  {
+    "station": "Waihau Bay Coastguard",
+    "lat": -37.619774,
+    "lon": 177.903912
+  },
+  {
+    "station": "Whakatene Coastguard",
+    "lat": -37.947574,
+    "lon": 177.007945
+  },
+  {
+    "station": "Whangarei Coastguard",
+    "lat": -35.750168,
+    "lon": 174.347468
+  },
+  {
+    "station": "Whangaroa Coastguard",
+    "lat": -35.049471,
+    "lon": 173.743926
+  },
+  {
+    "station": "Whangaruru Coastguard",
+    "lat": -35.350885,
+    "lon": 174.321808
+  },
+  {
+    "station": "Waihi Coastguard",
+    "lat": -37.428473,
+    "lon": 175.957542
   }
 ]

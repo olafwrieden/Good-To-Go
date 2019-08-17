@@ -47,17 +47,21 @@
     </style>
     <div class="mdl-layout--fixed-header">
         <header class="mdl-layout__header is-casting-shadow">
-        <div class="mdl-layout__header-row">
-            <!-- Title -->
-            <span class="mdl-layout-title">Good to go?</span>
-            
-            <!-- Add spacer, to align navigation to the right -->
-            <div class="mdl-layout-spacer"></div>
-            <span class="mdl-layout-title">Click close to shore to find out shore to find boating conditions</span>
-            <!-- Navigation -->
-            <nav class="mdl-navigation"></nav>
-        </div>
-    </header></div>
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Good to go?</span>
+
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <span class="mdl-layout-title"
+                    >Click close to shore to find out shore to find boating
+                    conditions</span
+                >
+                <!-- Navigation -->
+                <nav class="mdl-navigation"></nav>
+            </div>
+        </header>
+    </div>
     <div class="mdl-layout mdl-js-layout mdl-layout--no-drawer-button">
         <div class="mdl-layout__drawer drawer">
             <span class="drawer-header">
@@ -150,6 +154,12 @@
                         </td>
                         <td id="wind_speed"></td>
                     </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Visibility
+                        </td>
+                        <td id="visibility"></td>
+                    </tr>
                 </tbody>
             </table>
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
@@ -175,6 +185,30 @@
                         <td id="water_temp"></td>
                     </tr>
                 </tbody>
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric">
+                                Nearest Coastguard
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td
+                                id="coastguard-location"
+                                class="mdl-data-table__cell--non-numeric"
+                            >
+                                Description
+                            </td>
+                            <td
+                                id="coastguard-distance"
+                                class="mdl-data-table__cell--non-numeric"
+                            ></td>
+                        </tr>
+                    </tbody>
+                </table>
             </table>
         </div>
         <main class="mdl-layout__content">
@@ -190,5 +224,4 @@
             </body>
         </main>
     </div>
-
 </html>
