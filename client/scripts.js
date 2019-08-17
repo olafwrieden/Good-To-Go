@@ -45,7 +45,7 @@ getInfo = event => {
     let lon = event.latLng.lng();
     console.log(lat, lon);
 
-    fetch(`http://localhost:3000/info?lat=${lat}&lon=${lon}`)
+    fetch(`http://localhost:3000/dev/info?lat=${lat}&lon=${lon}`)
         .then(response => {
             if (response.status !== 200) {
                 console.log(
@@ -80,4 +80,22 @@ var updateInfo = data => {
     $("#wind_speed").html(data.weather.wind_speed);
     $("#swell_height").html(data.marine.swell_height);
     $("#water_temp").html(data.marine.water_temp);
+    $("#visibility").html(data.weather.visibility);
+    renderNearestCoastGuard(data.coastguard_stations);
+};
+var renderNearestCoastGuard = coastguard_stations => {
+    // find coast guard minimum distance away
+    let nearestCoastguard = coastguard_stations.reduce((prev, current) => {
+        return prev.distance < current.distance ? prev : current;
+    });
+
+    // render info
+    $("#coastguard-location").html(nearestCoastguard.station);
+    let distanceInKm = metresToKm(nearestCoastguard.distance);
+    $("#coastguard-distance").html(`${distanceInKm} km away`);
+};
+
+var metresToKm = distanceInKm => {
+    let distanceInM = distanceInKm / 1000;
+    return distanceInM.toFixed(1);
 };
