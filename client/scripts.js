@@ -57,4 +57,8 @@ getInfo = event => {
 };
 
 // add stuff here that needs to be done after document load
-$(document).ready(function() {});
+$(document).ready(function() {
+    $(".drawer-button").click(() => {
+        $(".mdl-layout__drawer").removeClass("is-visible");
+    });
+});
