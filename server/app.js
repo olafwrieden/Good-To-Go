@@ -27,9 +27,16 @@ app.get('/info', (req, res) => {
       temp_high: 32.5,
       temp_low: 17.5,
       temp_current: 18.6,
+      temp_apparent: 13.5,
       wind_speed: 20.3,
       wind_dir: 'ENE',
       text_description: 'Sunny',
+      rainfall: 1.2,
+      visibility: 2, // km
+    },
+    marine: {
+      swell_height: 10.3, // m
+      water_temp: 16.3,
     },
   };
 
@@ -55,15 +62,23 @@ app.get('/dev/info', async (req, res) => {
   try {
     const data = await axios.get(url);
     const weather = data.data.data.weather[0];
+    const current = weather.hourly[0];
 
     const response = {
       weather: {
-        temp_high: weather.maxtempC,
-        temp_low: weather.mintempC,
-        temp_current: weather.hourly[0].tempC,
-        wind_speed: weather.hourly[0].windspeedKmph,
-        wind_dir: weather.hourly[0].winddir16Point,
-        text_description: weather.hourly[0].weatherDesc[0].value,
+        temp_high: Number(weather.maxtempC),
+        temp_low: Number(weather.mintempC),
+        temp_current: Number(current.tempC),
+        temp_apparent: Number(current.FeelsLikeC),
+        wind_speed: Number(current.windspeedKmph),
+        wind_dir: current.winddir16Point,
+        text_description: current.weatherDesc[0].value,
+        rainfall: Number(current.precipMM),
+        visibility: Number(current.visibility),
+      },
+      marine: {
+        swell_height: Number(current.swellHeight_m),
+        water_temp: Number(current.waterTemp_C),
       },
     };
 
