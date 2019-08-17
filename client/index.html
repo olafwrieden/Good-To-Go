@@ -24,28 +24,54 @@
             rel="stylesheet"
             href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
         />
-        <script
-            defer
-            src="https://code.getmdl.io/1.3.0/material.min.js"
-        ></script>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
-    <body>
-        <div id="map"></div>
-        <script>
-            var map;
-            function initMap() {
-                map = new google.maps.Map(document.getElementById("map"), {
-                    center: { lat: -36.848461, lng: 174.763336 },
-                    zoom: 8
-                });
-            }
-        </script>
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5G-xW5bNV7nLA-MTvGBosb0vzlqu7Vxs&callback=initMap"
-            async
-            defer
-        ></script>
-        <script src="scripts.js"></script>
-        <div id="dataField"></div>
-    </body>
+    <!-- Uses a transparent header that draws on top of the layout's background -->
+    <style>
+        .demo-layout-transparent {
+            background: url("../assets/demos/transparent.jpg") center / cover;
+            color: green;
+        }
+        .demo-layout-transparent .mdl-layout__header,
+        .demo-layout-transparent .mdl-layout__drawer-button {
+            /* This background is dark, so we set text to white. Use 87% black instead if
+       your background is light. */
+            color: blue;
+        }
+    </style>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--no-drawer-button">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Title</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation -->
+                <nav class="mdl-navigation"></nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer drawer">
+            <span class="mdl-layout-title">Location</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <body>
+                <div id="map"></div>
+                <script
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5hbuIivbsrQjAX_yJKCG3A6AtxVzCg8o&callback=initMap"
+                    async
+                    defer
+                ></script>
+                <script src="scripts.js"></script>
+                <div id="dataField"></div>
+            </body>
+        </main>
+    </div>
 </html>
