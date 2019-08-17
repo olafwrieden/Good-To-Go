@@ -56,6 +56,7 @@ getInfo = event => {
             response.json().then(data => {
                 console.log(data);
                 updateInfo(data);
+                displayRecommendation(data,lat,lon);
             });
         })
         .catch(err => console.log);
@@ -81,3 +82,22 @@ var updateInfo = data => {
     $("#swell_height").html(data.marine.swell_height);
     $("#water_temp").html(data.marine.water_temp);
 };
+
+const displayRecommendation = (data, lat, lon) => {
+  lat = Number(lat).toFixed(2);
+  lon = Number(lon).toFixed(2);
+
+  const location = `<h5>lattitude: ${lat}</h5><h5>longitude: ${lon}</h5>`
+  $('#sidebar-title').html(location);
+  const goodToGoText = data.recommendation.safe ? "You're good to go!" : "You're not good to go.";
+  $('#safe').html(`<h1>${goodToGoText}</h1>`);
+
+  if (data.recommendation.safe) {
+    $('#icon').html(`<i class="fas fa-check fa-5x" style="color:green"></i>`);
+  } else {
+    $('#icon').html(`<i class="fas fa-times fa-5x" style="color:red"></i>`);
+  }
+
+  $('#reasons').empty();
+  data.recommendation.reasons.forEach(item => $('#reasons').append(`<li>${item}</li>`));
+}
