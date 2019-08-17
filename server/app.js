@@ -12,12 +12,13 @@ const port = 3000;
 
 app.use(cors());
 app.use(express.json());
-
+app.use(express.static('public'))
 // Default Route, No Data!
 app.get('/', (req, res) => {
-  res
-    .status(200)
-    .send('No data to display here. Give /info or /dev/info a try :)');
+  res.sendFile(__dirname + '/public/index.html');
+  // res
+  //   .status(200)
+  //   .send('No data to display here. Give /info or /dev/info a try :)');
 });
 
 // Returns the weather info for the given coordinates. TODO: Switch Over To Live Data
