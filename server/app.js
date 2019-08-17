@@ -2,16 +2,20 @@ const express = require('express');
 const dotenv = require('dotenv');
 const axios = require('axios');
 const d2d = require('degrees-to-direction');
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
 const port = 3000;
 
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.status(200).send('No data to display here. Give /info or /dev/info a try :)');
+  res
+    .status(200)
+    .send('No data to display here. Give /info or /dev/info a try :)');
 });
 
 app.get('/info', (req, res) => {
