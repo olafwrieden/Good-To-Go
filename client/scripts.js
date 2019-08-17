@@ -1,30 +1,11 @@
+var markers = [];
+var map;
+
 function initMap() {
-    var map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: -36.848461, lng: 174.763336 },
         zoom: 8
     });
-
-    var markers = [];
-    // Adds a marker to the map and push to the array.
-    addMarker = location => {
-        var marker = new google.maps.Marker({
-            position: location,
-            map: map
-        });
-        markers.push(marker);
-    };
-
-    // Sets the map on all markers in the array.
-    setMapOnAll = map => {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
-        }
-    };
-
-    // Removes the markers from the map, but keeps them in the array.
-    clearMarkers = () => {
-        setMapOnAll(null);
-    };
 
     google.maps.event.addListener(map, "click", function(event) {
         clearMarkers();
@@ -37,6 +18,27 @@ function initMap() {
         getInfo(event);
     });
 }
+
+// Adds a marker to the map and push to the array.
+var addMarker = location => {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    markers.push(marker);
+};
+
+// Sets the map on all markers in the array.
+var setMapOnAll = map => {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+};
+
+// Removes the markers from the map, but keeps them in the array.
+var clearMarkers = () => {
+    setMapOnAll(null);
+};
 
 getInfo = event => {
     let lat = event.latLng.lat();
@@ -60,5 +62,6 @@ getInfo = event => {
 $(document).ready(function() {
     $(".drawer-button").click(() => {
         $(".mdl-layout__drawer").removeClass("is-visible");
+        clearMarkers();
     });
 });
