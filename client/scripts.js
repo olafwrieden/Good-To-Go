@@ -53,7 +53,10 @@ getInfo = event => {
                 );
                 return;
             }
-            response.json().then(data => console.log);
+            response.json().then(data => {
+                console.log(data);
+                updateInfo(data);
+            });
         })
         .catch(err => console.log);
 };
@@ -65,3 +68,16 @@ $(document).ready(function() {
         clearMarkers();
     });
 });
+
+var updateInfo = data => {
+    $("#temp_apparent").html(data.weather.temp_apparent);
+    $("#temp_current").html(data.weather.temp_current);
+    $("#temp_high").html(data.weather.temp_high);
+    $("#temp_low").html(data.weather.temp_low);
+    $("#rainfall").html(data.weather.rainfall);
+    $("#text_description").html(data.weather.text_description);
+    $("#wind_dir").html(data.weather.wind_dir);
+    $("#wind_speed").html(data.weather.wind_speed);
+    $("#swell_height").html(data.marine.swell_height);
+    $("#water_temp").html(data.marine.water_temp);
+};
