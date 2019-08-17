@@ -7,8 +7,9 @@ function initMap() {
         zoom: 8
     });
 
-    google.maps.event.addListener(map, "click", function(event) {
+    google.maps.event.addListener(map, "click", event => {
         clearMarkers();
+        console.log(event.latLng);
         addMarker(event.latLng);
 
         // Bring out drawer, remove obfuscator
@@ -23,7 +24,23 @@ function initMap() {
 var addMarker = location => {
     var marker = new google.maps.Marker({
         position: location,
-        map: map
+        map,
+        icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+            scaledSize: new google.maps.Size(50, 50) // scaled size
+        }
+    });
+    markers.push(marker);
+};
+
+var addCoastguardMarker = coastguard => {
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(coastguard.lat, coastguard.lon),
+        map,
+        icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/orange.png",
+            scaledSize: new google.maps.Size(50, 50) // scaled size
+        }
     });
     markers.push(marker);
 };
@@ -81,6 +98,7 @@ var updateInfo = data => {
     $("#swell_height").html(data.marine.swell_height);
     $("#water_temp").html(data.marine.water_temp);
     $("#visibility").html(data.weather.visibility);
+    renderCoastGuardMarkers(data.coastguard_stations);
     renderNearestCoastGuard(data.coastguard_stations);
 };
 var renderNearestCoastGuard = coastguard_stations => {
@@ -98,4 +116,10 @@ var renderNearestCoastGuard = coastguard_stations => {
 var metresToKm = distanceInKm => {
     let distanceInM = distanceInKm / 1000;
     return distanceInM.toFixed(1);
+};
+
+var renderCoastGuardMarkers = coastguard_stations => {
+    coastguard_stations.forEach(coastguard => {
+        addCoastguardMarker(coastguard);
+    });
 };
