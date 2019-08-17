@@ -1,18 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>
+  <head>
+    <meta charset="utf-8" />
+    <title>
       Good to Go?
-  </title>
-  <style>
-  </style>
-</head>
-<body>
-    <p>
-        Hello world!
-    </p>
-</body>
- 
-</body>
+    </title>
+    <style></style>
+  </head>
+  <body>
+    <h1>
+      Where do you want to go?
+    </h1>
+    <div style="overflow:hidden;width: 2000px;position: relative;">
+      <iframe
+        width="2000"
+        height="2000"
+        src="https://maps.google.com/maps?width=2000&amp;height=2000&amp;hl=en&amp;q=new%20zealand+(Title)&amp;ie=UTF8&amp;t=&amp;z=7&amp;iwloc=B&amp;output=embed"
+        frameborder="0"
+        scrolling="no"
+        marginheight="0"
+        marginwidth="0"
+      ></iframe>
+      <div
+        style="position: absolute;width: 80%;bottom: 10px;left: 0;right: 0;margin-left: auto;margin-right: auto;color: #000;text-align: center;"
+      >
+        <small style="line-height: 1.8;font-size: 2px;background: #fff;"
+          >Powered by
+          <a href="https://embedgooglemaps.com/it/">Embedgooglemaps IT</a> &
+          <a href="http://lasvegasstatistics.embedgooglemaps.com"
+            >lasvegastatistics site</a
+          ></small
+        >
+      </div>
+      <style>
+        #gmap_canvas img {
+          max-width: none !important;
+          background: none !important;
+        }
+      </style>
+    </div>
+    <br />
+  </body>
 </html>
