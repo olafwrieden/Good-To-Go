@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const axios = require("axios");
 const d2d = require("degrees-to-direction");
 const geolib = require("geolib");
+const cors = require('cors')
 
 dotenv.config();
 
