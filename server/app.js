@@ -10,6 +10,10 @@ const port = 3000;
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.status(200).send('No data to display here. Give /info or /dev/info a try :)');
+});
+
 app.get('/info', (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
