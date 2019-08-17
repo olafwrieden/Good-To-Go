@@ -1,10 +1,9 @@
-const coastguard = require("./coastguard.json");
-const express = require("express");
-const dotenv = require("dotenv");
-const axios = require("axios");
-const d2d = require("degrees-to-direction");
-const geolib = require("geolib");
-const cors = require('cors')
+const coastguard = require('./coastguard.json');
+const express = require('express');
+const dotenv = require('dotenv');
+const axios = require('axios');
+const geolib = require('geolib');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -15,14 +14,14 @@ app.use(cors());
 app.use(express.json());
 
 // Default Route, No Data!
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res
     .status(200)
-    .send("No data to display here. Give /info or /dev/info a try :)");
+    .send('No data to display here. Give /info or /dev/info a try :)');
 });
 
 // Returns the weather info for the given coordinates. TODO: Switch Over To Live Data
-app.get("/info", (req, res) => {
+app.get('/info', (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
 
@@ -56,6 +55,10 @@ app.get("/info", (req, res) => {
         distance: 25.6, // km
       },
     ],
+    recommendation: {
+      safe: false,
+      reasons: ['Visibility is less than 1km', 'Swell is greater than 4km'],
+    },
   };
 
   res.status(200).send(response);
@@ -67,15 +70,15 @@ app.get('/dev/info', async (req, res) => {
   const lon = req.query.lon;
 
   if (lat == null || lon == null) {
-    return res.status(400).send("Error: Please provide a lat & lon parameters");
+    return res.status(400).send('Error: Please provide a lat & lon parameters');
   }
 
   if (Number(lat) < -86 || Number(lat) > 86) {
-    return res.status(400).send("invalid latitude");
+    return res.status(400).send('invalid latitude');
   }
 
   if (Number(lon) < -180 || Number(lon) > 180) {
-    return res.status(400).send("invalid longitude");
+    return res.status(400).send('invalid longitude');
   }
 
   const API_KEY = process.env.WORLD_WEATHER_KEY;
@@ -86,7 +89,7 @@ app.get('/dev/info', async (req, res) => {
     const weather = data.data.data.weather[0];
     const current = weather.hourly[0];
 
-    const response = {
+    let response = {
       weather: {
         temp_high: Number(weather.maxtempC),
         temp_low: Number(weather.mintempC),
@@ -102,8 +105,11 @@ app.get('/dev/info', async (req, res) => {
         swell_height: Number(current.swellHeight_m),
         water_temp: Number(current.waterTemp_C),
       },
-      coastguard_stations: await closestStation({ lat, lon })
+      coastguard_stations: await closestStation({lat, lon}),
     };
+
+    // perform recommendation
+    response = recommend(response);
 
     return res.status(200).send(response);
   } catch (error) {
@@ -112,7 +118,7 @@ app.get('/dev/info', async (req, res) => {
 });
 
 // Location of Coastguard Stations
-app.get("/coastguard", (req, res) => {
+app.get('/coastguard', (req, res) => {
   res.status(200).send(coastguard);
 });
 
@@ -121,11 +127,11 @@ const closestStation = async location => {
   coastguard.forEach(station => {
     // Get Distance
     let distance = geolib.getDistance(
-      { latitude: location.lat, longitude: location.lon },
-      { latitude: station.lat, longitude: station.lon }
+      {latitude: location.lat, longitude: location.lon},
+      {latitude: station.lat, longitude: station.lon},
     );
     // Append it to Object
-    station["distance"] = distance;
+    station['distance'] = distance;
   });
 
   // Sort by Nearest
@@ -136,6 +142,29 @@ const closestStation = async location => {
   });
 
   return coastguard.slice(0, 2);
+};
+
+// recommendation engine
+// returns complete object with recommendation
+const recommend = info => {
+  const reasons = [];
+
+  if (info.weather.wind_speed > 40) {
+    reasons.push('Wind speed is greater than 40 kmph');
+  }
+  if (info.weather.visibility < 2) {
+    reasons.push('Visibility is less than 1 km');
+  }
+  if (info.marine.swell_height > 3) {
+    reasons.push('Swell height is greater than 3 m');
+  }
+
+  const recommendation = {
+    safe: reasons.length == 0,
+    reasons,
+  };
+
+  return {...info, recommendation};
 };
 
 app.listen(port, () => console.log(`API Server running on port: ${port}`));
