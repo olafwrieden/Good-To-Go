@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API for the good to go application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "good",
+    "to",
+    "go"
+  ],
+  "author": "Good To Go.",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "degrees-to-direction": "^1.1.1",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
