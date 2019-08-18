@@ -15,13 +15,20 @@ const addMarker = location => {
 };
 
 const addCoastguardMarker = coastguard => {
+    var infowindow = new google.maps.InfoWindow({
+        content: `<b>Station: ${coastguard.station}</b><br>${metresToKm(coastguard.distance)} km away`,
+    });
     var marker = new google.maps.Marker({
+        title: `Station: ${coastguard.station}`,
         position: new google.maps.LatLng(coastguard.lat, coastguard.lon),
         map,
         icon: {
             url: "https://maps.google.com/mapfiles/kml/pal3/icon46.png",
             scaledSize: new google.maps.Size(30, 30) // scaled size
         }
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
     });
     markers.push(marker);
 };
