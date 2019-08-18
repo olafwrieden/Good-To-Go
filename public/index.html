@@ -50,14 +50,14 @@
     </style>
     <div class="mdl-layout--fixed-header">
         <header class="mdl-layout__header is-casting-shadow">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <span class="mdl-layout-title">Good to go?</span>
+            <div class="mdl-layout__header-row" style="padding:20px">
+                <!-- Title class="mdl-layout-title"-->
+                <span><h2>Good to Go?</h2></span>
 
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <span class="mdl-layout-title"
-                    >Click close to the shore to find out boating
+                    >Select a location in the ocean to check safety
                     conditions</span
                 >
                 <!-- Navigation -->
@@ -70,6 +70,16 @@
             class="mdl-layout__drawer drawer"
             style="height: calc(100% - 64px)"
         >
+            <span id="drawer-title">
+                <div id="latlng-header"></div>
+                <!-- Colored FAB button with ripple -->
+                <button
+                    class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored drawer-button"
+                >
+                    <i class="material-icons">close</i>
+                </button>
+            </span>
+
             <div id="loading"></div>
 
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
@@ -78,7 +88,7 @@
                         <th class="mdl-data-table__cell--non-numeric">
                             Nearest Coastguard
                         </th>
-                        <th></th>
+                        <th><i class="fas fa-plus-square fa-x"></i></th>
                     </tr>
                 </thead>
                 <tbody>

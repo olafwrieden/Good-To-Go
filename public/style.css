@@ -10,11 +10,7 @@
     float: right;
     outline: none !important;
     padding: 10px;
-}
-
-.drawer-title-location {
-    float: left;
-    margin: 18px 0px 0px 15px;
+    background: rgb(0, 150, 136) !important;
 }
 
 .drawer-header {
@@ -33,4 +29,28 @@
 .gap_left {
     padding-left: 10px;
     margin: center;
+}
+
+#latlng-header {
+    margin: 10px;
+    float: left;
+    margin: 20px 10px 10px 5px;
+}
+
+#drawer-title {
+    padding: 10px;
+}
+
+.mdl-button--fab .mdl-button__ripple-container {
+    border-radius: 30% !important;
+    -webkit-mask-image: -webkit-radial-gradient(circle, #fff, #fff) !important;
+}
+
+.mdl-button--fab.mdl-button--colored {
+    color: #fff !important;
+}
+
+.mdl-data-table th:first-of-type {
+    padding-left: 24px;
+    padding-bottom: 10px;
 }

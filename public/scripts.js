@@ -2,13 +2,18 @@ var markers = [];
 var map;
 
 // Adds a marker to the map and push to the array.
-const addMarker = location => {
+const addMarker = (location, currentLocation = false) => {
+    let markerIcon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+    if (currentLocation) {
+        markerIcon = "https://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png";
+    }
+    let size = currentLocation ? 30 : 50
     var marker = new google.maps.Marker({
         position: location,
         map,
         icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-            scaledSize: new google.maps.Size(50, 50) // scaled size
+            url: markerIcon,
+            scaledSize: new google.maps.Size(size, size) // scaled size
         }
     });
     markers.push(marker);
@@ -51,18 +56,6 @@ displayLoading = () => {
 
 displayInfo = () => {
     $("#loading").html(`
-    <span class="drawer-header">
-                    <span class=" width_wrapper vertical-center"
-                                id="sidebar-title">Loading...</span>
-
-                    <!-- Colored FAB button with ripple -->
-                    <button
-                        class="drawer-button"
-                    >
-                    <i class="fas fa-times"></i>
-                    </button>
-                </span>
-
                 <span id="recommendation">
                 <div id="icon" class="gap_left"></div>
                 <ul id="reasons"></ul>
@@ -74,6 +67,7 @@ getInfo = event => {
     let lat = event.latLng.lat();
     let lon = event.latLng.lng();
     displayLoading();
+    $("#latlng-header").empty();
     fetch(`/dev/info?lat=${lat}&lon=${lon}`)
         .then(response => {
             if (response.status !== 200) {
@@ -113,7 +107,7 @@ const setCurrentLocation = () => {
                 );
 
                 // add marker for current location
-                addMarker(posMarker);
+                addMarker(posMarker, true);
             },
             (error = err => {
                 console.log("error: " + err.message);
@@ -167,7 +161,7 @@ const displayRecommendation = (data, lat, lon) => {
     lon = Number(lon).toFixed(2);
 
     const location = `lattitude: ${lat}, longitude: ${lon}`;
-    $("#sidebar-title").html(location);
+    $("#latlng-header").html(location);
 
     if (data.recommendation.safe) {
         $("#icon").html(
