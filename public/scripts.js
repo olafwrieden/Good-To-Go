@@ -1,8 +1,6 @@
 var markers = [];
 var map;
 
-
-
 // Adds a marker to the map and push to the array.
 const addMarker = location => {
     var marker = new google.maps.Marker({
@@ -17,13 +15,20 @@ const addMarker = location => {
 };
 
 const addCoastguardMarker = coastguard => {
+    var infowindow = new google.maps.InfoWindow({
+        content: `<b>Station: ${coastguard.station}</b><br>${metresToKm(coastguard.distance)} km away`,
+    });
     var marker = new google.maps.Marker({
+        title: `Station: ${coastguard.station}`,
         position: new google.maps.LatLng(coastguard.lat, coastguard.lon),
         map,
         icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/orange.png",
-            scaledSize: new google.maps.Size(50, 50) // scaled size
+            url: "https://maps.google.com/mapfiles/kml/pal3/icon46.png",
+            scaledSize: new google.maps.Size(30, 30) // scaled size
         }
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
     });
     markers.push(marker);
 };
@@ -40,11 +45,35 @@ const clearMarkers = () => {
     setMapOnAll(null);
 };
 
+displayLoading = () => {
+    $("#loading").html(`<h2 style="text-align: center"> Loading... </h2>`);
+};
+
+displayInfo = () => {
+    $("#loading").html(`
+    <span class="drawer-header">
+                    <span class=" width_wrapper vertical-center"
+                                id="sidebar-title">Loading...</span>
+
+                    <!-- Colored FAB button with ripple -->
+                    <button
+                        class="drawer-button"
+                    >
+                    <i class="fas fa-times"></i>
+                    </button>
+                </span>
+
+                <span id="recommendation">
+                <div id="icon" class="gap_left"></div>
+                <ul id="reasons"></ul>
+                </span>
+                `);
+};
+
 getInfo = event => {
     let lat = event.latLng.lat();
     let lon = event.latLng.lng();
-    console.log(lat, lon);
-
+    displayLoading();
     fetch(`/dev/info?lat=${lat}&lon=${lon}`)
         .then(response => {
             if (response.status !== 200) {
@@ -55,6 +84,7 @@ getInfo = event => {
             }
             response.json().then(data => {
                 console.log(data);
+                displayInfo();
                 updateInfo(data);
                 displayRecommendation(data, lat, lon);
             });
@@ -68,7 +98,31 @@ $(document).ready(function() {
         $(".mdl-layout__drawer").removeClass("is-visible");
         clearMarkers();
     });
+
+    setCurrentLocation();
 });
+
+// Adds a marker at the current users location
+const setCurrentLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                let posMarker = new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude
+                );
+
+                // add marker for current location
+                addMarker(posMarker);
+            },
+            (error = err => {
+                console.log("error: " + err.message);
+            })
+        );
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+};
 
 const updateInfo = data => {
     $("#temp_apparent").html(data.weather.temp_apparent);
@@ -112,19 +166,16 @@ const displayRecommendation = (data, lat, lon) => {
     lat = Number(lat).toFixed(2);
     lon = Number(lon).toFixed(2);
 
-    const location = `<h5>lattitude: ${lat}</h5><h5>longitude: ${lon}</h5>`;
+    const location = `lattitude: ${lat}, longitude: ${lon}`;
     $("#sidebar-title").html(location);
-    const goodToGoText = data.recommendation.safe
-        ? "You're good to go!"
-        : "You're not good to go.";
-    $("#safe").html(`<h1>${goodToGoText}</h1>`);
 
     if (data.recommendation.safe) {
         $("#icon").html(
-            `<i class="fas fa-check fa-5x" style="color:green"></i>`
+            `<h2>You're good to go!  <i class="fas fa-check fa-x" style="color:green"></h2></i>`
         );
     } else {
-        $("#icon").html(`<i class="fas fa-times fa-5x" style="color:red"></i>`);
+        $("#icon").html(`
+        <h2>You're not good to go.  <i class="fas fa-times fa-x" style="color:red"></h2></i>`);
     }
 
     $("#reasons").empty();
