@@ -1,8 +1,6 @@
 var markers = [];
 var map;
 
-
-
 // Adds a marker to the map and push to the array.
 const addMarker = location => {
     var marker = new google.maps.Marker({
@@ -68,7 +66,31 @@ $(document).ready(function() {
         $(".mdl-layout__drawer").removeClass("is-visible");
         clearMarkers();
     });
+
+    setCurrentLocation();
 });
+
+// Adds a marker at the current users location
+const setCurrentLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                let posMarker = new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude
+                );
+
+                // add marker for current location
+                addMarker(posMarker);
+            },
+            (error = err => {
+                console.log("error: " + err.message);
+            })
+        );
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+};
 
 const updateInfo = data => {
     $("#temp_apparent").html(data.weather.temp_apparent);
