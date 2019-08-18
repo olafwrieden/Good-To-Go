@@ -2,13 +2,18 @@ var markers = [];
 var map;
 
 // Adds a marker to the map and push to the array.
-const addMarker = location => {
+const addMarker = (location, currentLocation = false) => {
+    let markerIcon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+    if (currentLocation) {
+        markerIcon = "https://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png";
+    }
+    let size = currentLocation ? 30 : 50
     var marker = new google.maps.Marker({
         position: location,
         map,
         icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-            scaledSize: new google.maps.Size(50, 50) // scaled size
+            url: markerIcon,
+            scaledSize: new google.maps.Size(size, size) // scaled size
         }
     });
     markers.push(marker);
@@ -113,7 +118,7 @@ const setCurrentLocation = () => {
                 );
 
                 // add marker for current location
-                addMarker(posMarker);
+                addMarker(posMarker, true);
             },
             (error = err => {
                 console.log("error: " + err.message);
