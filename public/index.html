@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow: hidden !important">
     <head>
         <title>Simple Map</title>
         <meta name="viewport" content="initial-scale=1.0" />
@@ -57,7 +57,7 @@
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <span class="mdl-layout-title"
-                    >Click close to shore to find out shore to find boating
+                    >Click close to the shore to find out boating
                     conditions</span
                 >
                 <!-- Navigation -->
@@ -67,24 +67,8 @@
     </div>
     <div class="mdl-layout mdl-js-layout mdl-layout--no-drawer-button">
         <div class="mdl-layout__drawer drawer">
-            <div id="loading">    
-                <span class="drawer-header">
-                    <span class=" width_wrapper vertical-center"
-                                id="sidebar-title">Loading...</span>
+            <div id="loading"></div>
 
-                    <!-- Colored FAB button with ripple -->
-                    <button
-                        class="drawer-button"
-                    >
-                    <i class="fas fa-times"></i>
-                    </button>
-                </span>
-
-                <span id="recommendation">
-                <div id="icon" class="gap_left"></div>
-                <ul id="reasons"></ul>
-                </span>
-            </div>
 
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
@@ -215,8 +199,8 @@
         </div>
         <main class="mdl-layout__content">
             <body>
-                <div id="map"></div>
-                <script
+                    <div id="map" style="height: calc(100% - 64px)"></div>
+                    <script
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5hbuIivbsrQjAX_yJKCG3A6AtxVzCg8o&callback=initMap"
                     async
                     defer

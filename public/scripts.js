@@ -1,8 +1,6 @@
 var markers = [];
 var map;
 
-
-
 // Adds a marker to the map and push to the array.
 const addMarker = location => {
     var marker = new google.maps.Marker({
@@ -21,7 +19,7 @@ const addCoastguardMarker = coastguard => {
         position: new google.maps.LatLng(coastguard.lat, coastguard.lon),
         map,
         icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/orange.png",
+            url: "https://maps.google.com/mapfiles/kml/pal3/icon46.png",
             scaledSize: new google.maps.Size(50, 50) // scaled size
         }
     });
@@ -63,6 +61,7 @@ displayInfo = () => {
                 <ul id="reasons"></ul>
                 </span>
                 `);}
+                
 getInfo = event => {
     let lat = event.latLng.lat();
     let lon = event.latLng.lng();
@@ -92,7 +91,31 @@ $(document).ready(function() {
         $(".mdl-layout__drawer").removeClass("is-visible");
         clearMarkers();
     });
+
+    setCurrentLocation();
 });
+
+// Adds a marker at the current users location
+const setCurrentLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                let posMarker = new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude
+                );
+
+                // add marker for current location
+                addMarker(posMarker);
+            },
+            (error = err => {
+                console.log("error: " + err.message);
+            })
+        );
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+};
 
 const updateInfo = data => {
     $("#temp_apparent").html(data.weather.temp_apparent);
