@@ -67,25 +67,24 @@
     </div>
     <div class="mdl-layout mdl-js-layout mdl-layout--no-drawer-button">
         <div class="mdl-layout__drawer drawer">
-            <span class="drawer-header">
-                <span class="mdl-layout-title drawer-title-location"
-                             id="sidebar-title"
-                    >Location</span
-                >
+            <div id="loading">    
+                <span class="drawer-header">
+                    <span class=" width_wrapper vertical-center"
+                                id="sidebar-title">Loading...</span>
 
-                <!-- Colored FAB button with ripple -->
-                <button
-                    class="drawer-button"
-                >
-                  <i class="fas fa-times"></i>
-                </button>
-            </span>
+                    <!-- Colored FAB button with ripple -->
+                    <button
+                        class="drawer-button"
+                    >
+                    <i class="fas fa-times"></i>
+                    </button>
+                </span>
 
-            <span id="recommendation">
-              <div id="safe"></div>
-              <div id="icon"></div>
-              <ul id="reasons"></ul>
-            </span>
+                <span id="recommendation">
+                <div id="icon" class="gap_left"></div>
+                <ul id="reasons"></ul>
+                </span>
+            </div>
 
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
