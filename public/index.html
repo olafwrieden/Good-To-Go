@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="overflow: hidden !important">
     <head>
         <title>Simple Map</title>
         <meta name="viewport" content="initial-scale=1.0" />
@@ -57,7 +57,7 @@
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <span class="mdl-layout-title"
-                    >Click close to shore to find out shore to find boating
+                    >Click close to the shore to find out boating
                     conditions</span
                 >
                 <!-- Navigation -->
@@ -66,7 +66,7 @@
         </header>
     </div>
     <div class="mdl-layout mdl-js-layout mdl-layout--no-drawer-button">
-        <div class="mdl-layout__drawer drawer">
+        <div class="mdl-layout__drawer drawer" style="height: calc(100% - 64px)">
             <span class="drawer-header">
                 <span class="mdl-layout-title drawer-title-location"
                              id="sidebar-title"
@@ -216,7 +216,7 @@
         </div>
         <main class="mdl-layout__content">
             <body>
-                <div id="map"></div>
+                <div id="map" style="height: calc(100% - 64px)"></div>
                 <script
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5hbuIivbsrQjAX_yJKCG3A6AtxVzCg8o&callback=initMap"
                     async

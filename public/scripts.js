@@ -19,7 +19,7 @@ const addCoastguardMarker = coastguard => {
         position: new google.maps.LatLng(coastguard.lat, coastguard.lon),
         map,
         icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/orange.png",
+            url: "https://maps.google.com/mapfiles/kml/pal3/icon46.png",
             scaledSize: new google.maps.Size(50, 50) // scaled size
         }
     });
@@ -43,7 +43,7 @@ getInfo = event => {
     let lon = event.latLng.lng();
     console.log(lat, lon);
 
-    fetch(`http://localhost:3000/dev/info?lat=${lat}&lon=${lon}`)
+    fetch(`/dev/info?lat=${lat}&lon=${lon}`)
         .then(response => {
             if (response.status !== 200) {
                 console.log(
