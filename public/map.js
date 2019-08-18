@@ -9,7 +9,7 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: -36.848461, lng: 174.763336 },
-    zoom: 8,
+    zoom: 9,
     zoomControl: true,
     mapTypeControl: false,
     scaleControl: false,
@@ -19,6 +19,11 @@ function initMap() {
     styles: myStyles
   });
 
+  google.maps.event.addListener(map, "click", event => {
+    clearMarkers();
+    addMarker(event.latLng);
+  });
+  
   google.maps.event.addListener(map, "click", event => {
     clearMarkers();
     console.log(event.latLng);

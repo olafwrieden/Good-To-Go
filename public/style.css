@@ -24,3 +24,13 @@
     color: #fff;
     background: rgb(0, 150, 136);
 }
+
+.width_wrapper {
+    width: 80%;
+    margin: left;
+}
+
+.gap_left {
+    padding-left: 10px;
+    margin: center;
+}
