@@ -40,7 +40,7 @@ const clearMarkers = () => {
 
 displayLoading = () => {
     $("#loading").html(`<h2 style="text-align: center"> Loading... </h2>`);
-}
+};
 
 displayInfo = () => {
     $("#loading").html(`
@@ -60,8 +60,9 @@ displayInfo = () => {
                 <div id="icon" class="gap_left"></div>
                 <ul id="reasons"></ul>
                 </span>
-                `);}
-                
+                `);
+};
+
 getInfo = event => {
     let lat = event.latLng.lat();
     let lon = event.latLng.lng();
@@ -82,7 +83,6 @@ getInfo = event => {
             });
         })
         .catch(err => console.log);
-    
 };
 
 // add stuff here that needs to be done after document load
