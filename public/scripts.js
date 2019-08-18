@@ -2,26 +2,38 @@ var markers = [];
 var map;
 
 // Adds a marker to the map and push to the array.
-const addMarker = location => {
+const addMarker = (location, currentLocation = false) => {
+    let markerIcon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+    if (currentLocation) {
+        markerIcon = "https://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png";
+    }
+    let size = currentLocation ? 30 : 50
     var marker = new google.maps.Marker({
         position: location,
         map,
         icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-            scaledSize: new google.maps.Size(50, 50) // scaled size
+            url: markerIcon,
+            scaledSize: new google.maps.Size(size, size) // scaled size
         }
     });
     markers.push(marker);
 };
 
 const addCoastguardMarker = coastguard => {
+    var infowindow = new google.maps.InfoWindow({
+        content: `<b>Station: ${coastguard.station}</b><br>${metresToKm(coastguard.distance)} km away`,
+    });
     var marker = new google.maps.Marker({
+        title: `Station: ${coastguard.station}`,
         position: new google.maps.LatLng(coastguard.lat, coastguard.lon),
         map,
         icon: {
             url: "https://maps.google.com/mapfiles/kml/pal3/icon46.png",
             scaledSize: new google.maps.Size(30, 30) // scaled size
         }
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
     });
     markers.push(marker);
 };
@@ -95,7 +107,7 @@ const setCurrentLocation = () => {
                 );
 
                 // add marker for current location
-                addMarker(posMarker);
+                addMarker(posMarker, true);
             },
             (error = err => {
                 console.log("error: " + err.message);
