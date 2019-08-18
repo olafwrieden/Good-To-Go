@@ -7,8 +7,9 @@ function initMap() {
         zoom: 8
     });
 
-    google.maps.event.addListener(map, "click", function(event) {
+    google.maps.event.addListener(map, "click", event => {
         clearMarkers();
+        console.log(event.latLng);
         addMarker(event.latLng);
 
         // Bring out drawer, remove obfuscator
@@ -20,23 +21,39 @@ function initMap() {
 }
 
 // Adds a marker to the map and push to the array.
-var addMarker = location => {
+const addMarker = location => {
     var marker = new google.maps.Marker({
         position: location,
-        map: map
+        map,
+        icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+            scaledSize: new google.maps.Size(50, 50) // scaled size
+        }
+    });
+    markers.push(marker);
+};
+
+const addCoastguardMarker = coastguard => {
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(coastguard.lat, coastguard.lon),
+        map,
+        icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/orange.png",
+            scaledSize: new google.maps.Size(50, 50) // scaled size
+        }
     });
     markers.push(marker);
 };
 
 // Sets the map on all markers in the array.
-var setMapOnAll = map => {
+const setMapOnAll = map => {
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(map);
     }
 };
 
 // Removes the markers from the map, but keeps them in the array.
-var clearMarkers = () => {
+const clearMarkers = () => {
     setMapOnAll(null);
 };
 
@@ -56,7 +73,7 @@ getInfo = event => {
             response.json().then(data => {
                 console.log(data);
                 updateInfo(data);
-                displayRecommendation(data,lat,lon);
+                displayRecommendation(data, lat, lon);
             });
         })
         .catch(err => console.log);
@@ -70,7 +87,7 @@ $(document).ready(function() {
     });
 });
 
-var updateInfo = data => {
+const updateInfo = data => {
     $("#temp_apparent").html(data.weather.temp_apparent);
     $("#temp_current").html(data.weather.temp_current);
     $("#temp_high").html(data.weather.temp_high);
@@ -82,9 +99,10 @@ var updateInfo = data => {
     $("#swell_height").html(data.marine.swell_height);
     $("#water_temp").html(data.marine.water_temp);
     $("#visibility").html(data.weather.visibility);
+    renderCoastGuardMarkers(data.coastguard_stations);
     renderNearestCoastGuard(data.coastguard_stations);
 };
-var renderNearestCoastGuard = coastguard_stations => {
+const renderNearestCoastGuard = coastguard_stations => {
     // find coast guard minimum distance away
     let nearestCoastguard = coastguard_stations.reduce((prev, current) => {
         return prev.distance < current.distance ? prev : current;
@@ -96,26 +114,38 @@ var renderNearestCoastGuard = coastguard_stations => {
     $("#coastguard-distance").html(`${distanceInKm} km away`);
 };
 
-var metresToKm = distanceInKm => {
+const metresToKm = distanceInKm => {
     let distanceInM = distanceInKm / 1000;
     return distanceInM.toFixed(1);
 };
 
+const renderCoastGuardMarkers = coastguard_stations => {
+    coastguard_stations.forEach(coastguard => {
+        addCoastguardMarker(coastguard);
+    });
+};
+
 const displayRecommendation = (data, lat, lon) => {
-  lat = Number(lat).toFixed(2);
-  lon = Number(lon).toFixed(2);
+    lat = Number(lat).toFixed(2);
+    lon = Number(lon).toFixed(2);
 
-  const location = `<h5>lattitude: ${lat}</h5><h5>longitude: ${lon}</h5>`
-  $('#sidebar-title').html(location);
-  const goodToGoText = data.recommendation.safe ? "You're good to go!" : "You're not good to go.";
-  $('#safe').html(`<h1>${goodToGoText}</h1>`);
+    const location = `<h5>lattitude: ${lat}</h5><h5>longitude: ${lon}</h5>`;
+    $("#sidebar-title").html(location);
+    const goodToGoText = data.recommendation.safe
+        ? "You're good to go!"
+        : "You're not good to go.";
+    $("#safe").html(`<h1>${goodToGoText}</h1>`);
 
-  if (data.recommendation.safe) {
-    $('#icon').html(`<i class="fas fa-check fa-5x" style="color:green"></i>`);
-  } else {
-    $('#icon').html(`<i class="fas fa-times fa-5x" style="color:red"></i>`);
-  }
+    if (data.recommendation.safe) {
+        $("#icon").html(
+            `<i class="fas fa-check fa-5x" style="color:green"></i>`
+        );
+    } else {
+        $("#icon").html(`<i class="fas fa-times fa-5x" style="color:red"></i>`);
+    }
 
-  $('#reasons').empty();
-  data.recommendation.reasons.forEach(item => $('#reasons').append(`<li>${item}</li>`));
-}
+    $("#reasons").empty();
+    data.recommendation.reasons.forEach(item =>
+        $("#reasons").append(`<li>${item}</li>`)
+    );
+};
