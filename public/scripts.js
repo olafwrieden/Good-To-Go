@@ -22,7 +22,7 @@ const addCoastguardMarker = coastguard => {
         map,
         icon: {
             url: "https://maps.google.com/mapfiles/kml/pal3/icon46.png",
-            scaledSize: new google.maps.Size(50, 50) // scaled size
+            scaledSize: new google.maps.Size(30, 30) // scaled size
         }
     });
     markers.push(marker);
