@@ -49,3 +49,8 @@
 .mdl-button--fab.mdl-button--colored {
     color: #fff !important;
 }
+
+.mdl-data-table th:first-of-type {
+    padding-left: 24px;
+    padding-bottom: 10px;
+}
