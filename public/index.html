@@ -66,34 +66,125 @@
         </header>
     </div>
     <div class="mdl-layout mdl-js-layout mdl-layout--no-drawer-button">
-        <div class="mdl-layout__drawer drawer" style="height: calc(100% - 64px)">
+        <div
+            class="mdl-layout__drawer drawer"
+            style="height: calc(100% - 64px)"
+        >
             <span class="drawer-header">
-                <span class="mdl-layout-title drawer-title-location"
-                             id="sidebar-title"
+                <span
+                    class="mdl-layout-title drawer-title-location"
+                    id="sidebar-title"
                     >Location</span
                 >
 
                 <!-- Colored FAB button with ripple -->
-                <button
-                    class="drawer-button"
-                >
-                  <i class="fas fa-times"></i>
+                <button class="drawer-button">
+                    <i class="fas fa-times"></i>
                 </button>
             </span>
 
             <span id="recommendation">
-              <div id="safe"></div>
-              <div id="icon"></div>
-              <ul id="reasons"></ul>
+                <div id="safe"></div>
+                <div id="icon"></div>
+                <ul id="reasons"></ul>
             </span>
-
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">
-                            Temperature
+                            Nearest Coastguard
                         </th>
-                        <th><i class="fas fa-thermometer-three-quarters"></i></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td
+                            id="coastguard-location"
+                            class="mdl-data-table__cell--non-numeric"
+                        ></td>
+                        <td
+                            id="coastguard-distance"
+                            class="mdl-data-table__cell--non-numeric"
+                        ></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">
+                            Marine
+                        </th>
+                        <th><i class="fas fa-water"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Swell Height (m)
+                        </td>
+                        <td id="swell_height"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Water Temperature (&deg;C)
+                        </td>
+                        <td id="water_temp"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">
+                            Weather
+                        </th>
+                        <th><i class="fas fa-wind"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Description
+                        </td>
+                        <td id="text_description"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Rainfall (mm)
+                        </td>
+                        <td id="rainfall"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Wind Direction
+                        </td>
+                        <td id="wind_dir"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Wind Speed (km/h)
+                        </td>
+                        <td id="wind_speed"></td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            Visibility (km)
+                        </td>
+                        <td id="visibility"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">
+                            Temperature (&deg;C)
+                        </th>
+                        <th>
+                            <i class="fas fa-thermometer-three-quarters"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,96 +213,6 @@
                         <td id="temp_low"></td>
                     </tr>
                 </tbody>
-            </table>
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">
-                            Weather
-                        </th>
-                        <th><i class="fas fa-wind"></i></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Description
-                        </td>
-                        <td id="text_description"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Rainfall
-                        </td>
-                        <td id="rainfall"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Wind Direction
-                        </td>
-                        <td id="wind_dir"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Wind Speed
-                        </td>
-                        <td id="wind_speed"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Visibility
-                        </td>
-                        <td id="visibility"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">
-                            Marine
-                        </th>
-                        <th><i class="fas fa-water"></i></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Swell Height
-                        </td>
-                        <td id="swell_height"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Water Temperature
-                        </td>
-                        <td id="water_temp"></td>
-                    </tr>
-                </tbody>
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                    <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">
-                                Nearest Coastguard
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td
-                                id="coastguard-location"
-                                class="mdl-data-table__cell--non-numeric"
-                            >
-                                Description
-                            </td>
-                            <td
-                                id="coastguard-distance"
-                                class="mdl-data-table__cell--non-numeric"
-                            ></td>
-                        </tr>
-                    </tbody>
-                </table>
             </table>
         </div>
         <main class="mdl-layout__content">
