@@ -44,18 +44,6 @@ displayLoading = () => {
 
 displayInfo = () => {
     $("#loading").html(`
-    <span class="drawer-header">
-                    <span class=" width_wrapper vertical-center"
-                                id="sidebar-title">Loading...</span>
-
-                    <!-- Colored FAB button with ripple -->
-                    <button
-                        class="drawer-button"
-                    >
-                    <i class="fas fa-times"></i>
-                    </button>
-                </span>
-
                 <span id="recommendation">
                 <div id="icon" class="gap_left"></div>
                 <ul id="reasons"></ul>
@@ -67,6 +55,7 @@ getInfo = event => {
     let lat = event.latLng.lat();
     let lon = event.latLng.lng();
     displayLoading();
+    $("#latlng-header").empty();
     fetch(`/dev/info?lat=${lat}&lon=${lon}`)
         .then(response => {
             if (response.status !== 200) {
@@ -160,7 +149,7 @@ const displayRecommendation = (data, lat, lon) => {
     lon = Number(lon).toFixed(2);
 
     const location = `lattitude: ${lat}, longitude: ${lon}`;
-    $("#sidebar-title").html(location);
+    $("#latlng-header").html(location);
 
     if (data.recommendation.safe) {
         $("#icon").html(
