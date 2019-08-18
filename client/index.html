@@ -24,11 +24,14 @@
         />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+        <script src="https://kit.fontawesome.com/eaa176a6c6.js"></script>
+
         <link
             rel="stylesheet"
             href="https://code.getmdl.io/1.3.0/material.teal-cyan.min.css"
         />
         <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://kit.fontawesome.com/1b7b8a6944.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <!-- Uses a transparent header that draws on top of the layout's background -->
@@ -65,23 +68,31 @@
         <div class="mdl-layout__drawer drawer">
             <span class="drawer-header">
                 <span class="mdl-layout-title drawer-title-location"
+                             id="sidebar-title"
                     >Location</span
                 >
 
                 <!-- Colored FAB button with ripple -->
                 <button
-                    class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored drawer-button"
+                    class="drawer-button"
                 >
-                    <i class="material-icons">close</i>
+                  <i class="fas fa-times"></i>
                 </button>
             </span>
+
+            <span id="recommendation">
+              <div id="safe"></div>
+              <div id="icon"></div>
+              <ul id="reasons"></ul>
+            </span>
+
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">
                             Temperature
                         </th>
-                        <th></th>
+                        <th><i class="fas fa-thermometer-three-quarters"></i></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,7 +128,7 @@
                         <th class="mdl-data-table__cell--non-numeric">
                             Weather
                         </th>
-                        <th></th>
+                        <th><i class="fas fa-wind"></i></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -159,7 +170,7 @@
                         <th class="mdl-data-table__cell--non-numeric">
                             Marine
                         </th>
-                        <th></th>
+                        <th><i class="fas fa-water"></i></th>
                     </tr>
                 </thead>
                 <tbody>
