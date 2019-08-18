@@ -21,7 +21,7 @@ const addCoastguardMarker = coastguard => {
         position: new google.maps.LatLng(coastguard.lat, coastguard.lon),
         map,
         icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/orange.png",
+            url: "https://maps.google.com/mapfiles/kml/pal3/icon46.png",
             scaledSize: new google.maps.Size(50, 50) // scaled size
         }
     });
