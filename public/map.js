@@ -33,7 +33,6 @@ function initMap() {
 
   google.maps.event.addListener(map, "click", event => {
     clearMarkers();
-    console.log(event.latLng);
     addMarker(event.latLng);
 
     // Bring out drawer, remove obfuscator
