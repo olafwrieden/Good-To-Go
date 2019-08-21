@@ -44,6 +44,6 @@ When 'Not Good to Go' weather/water conditions are identified, an appropriate re
 ![not good to go](/screenshots/map-not-good.png)
 
 ### See something that can be improved?
-Remember: Hackathons and Create Camps are intensives focused on the overall usability of the page, often sacrificing code quality for time. This project is by no means a measure of our individual or collective practices and standards.
+Remember: Hackathons and Create Camps are intensives focused on the overall usability and processes behind the development of the website, often sacrificing code quality for time.
 
 While this is not an active project, we would love to hear from you. Feel free to submit a Pull Request if you can improve this repository, or open an issue should you encounter a bug. 🐞
