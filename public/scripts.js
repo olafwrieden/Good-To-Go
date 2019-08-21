@@ -8,7 +8,7 @@ var map;
  */
 const addMarker = (location, currentLocation = false) => {
 	// Set Corresponding Marker Icon and Size
-	let markerIcon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+	let markerIcon = "https://maps.google.com/mapfiles/ms/icons/red-dot.png";
 	if (currentLocation) {
 		markerIcon = "https://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png";
 	}
