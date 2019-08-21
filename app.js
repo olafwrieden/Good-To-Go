@@ -13,83 +13,43 @@ const port = process.env.PORT
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'))
-// Default Route, No Data!
+
+/**
+ * Default Route, Render Client Page
+ */
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
-  // res
-  //   .status(200)
-  //   .send('No data to display here. Give /info or /dev/info a try :)');
 });
 
-// Returns the weather info for the given coordinates. TODO: Switch Over To Live Data
-app.get('/info', (req, res) => {
-  const lat = req.query.lat;
-  const lon = req.query.lon;
-
-  const response = {
-    weather: {
-      temp_high: 32.5,
-      temp_low: 17.5,
-      temp_current: 18.6,
-      temp_apparent: 13.5,
-      wind_speed: 20.3,
-      wind_dir: 'ENE',
-      text_description: 'Sunny',
-      rainfall: 1.2,
-      visibility: 2, // km
-    },
-    marine: {
-      swell_height: 10.3, // m
-      water_temp: 16.3,
-    },
-    coastguard_stations: [
-      {
-        station: 'Auckland',
-        lat: -36.8,
-        lon: 174.8,
-        distance: 2.5, // km
-      },
-      {
-        station: 'Tauranga',
-        lat: -32.8,
-        lon: 154.8,
-        distance: 25.6, // km
-      },
-    ],
-    recommendation: {
-      safe: false,
-      reasons: ['Visibility is less than 1km', 'Swell is greater than 4km'],
-    },
-  };
-
-  res.status(200).send(response);
-});
-
-// live endpoint, will replace mocked endpoint when deployed
-app.get('/dev/info', async (req, res) => {
+/**
+ * Returns the weather info for the given coordinates
+ */
+app.get('/info', async (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
 
   if (lat == null || lon == null) {
-    return res.status(400).send('Error: Please provide a lat & lon parameters');
+    return res.status(400).send('Error: Please provide a lat & lon parameter');
   }
 
   if (Number(lat) < -86 || Number(lat) > 86) {
-    return res.status(400).send('invalid latitude');
+    return res.status(400).send('Invalid Latitude');
   }
 
   if (Number(lon) < -180 || Number(lon) > 180) {
-    return res.status(400).send('invalid longitude');
+    return res.status(400).send('Invalid Longitude');
   }
 
   const API_KEY = process.env.WORLD_WEATHER_KEY;
   const url = `https://api.worldweatheronline.com/premium/v1/marine.ashx?q=${lat},${lon}&key=${API_KEY}&format=json&tp=24`;
 
   try {
+    // Request Weather Data
     const data = await axios.get(url);
     const weather = data.data.data.weather[0];
     const current = weather.hourly[0];
 
+    // Construct API Response
     let response = {
       weather: {
         temp_high: Number(weather.maxtempC),
@@ -106,10 +66,13 @@ app.get('/dev/info', async (req, res) => {
         swell_height: Number(current.swellHeight_m),
         water_temp: Number(current.waterTemp_C),
       },
-      coastguard_stations: await closestStation({lat, lon}),
+      coastguard_stations: await closestStation({
+        lat,
+        lon
+      }),
     };
 
-    // perform recommendation
+    // Perform Recommendation
     response = recommend(response);
 
     return res.status(200).send(response);
@@ -118,35 +81,46 @@ app.get('/dev/info', async (req, res) => {
   }
 });
 
-// Location of Coastguard Stations
+/**
+ * Return all Coastguard Station Locations
+ */
 app.get('/coastguard', (req, res) => {
   res.status(200).send(coastguard);
 });
 
-// Get's Coastguard Stations Closest to the Coordinates.
+/**
+ * Get's Coastguard Stations Closest to the input location
+ * @param {Object} location the user's selected location
+ */
 const closestStation = async location => {
   coastguard.forEach(station => {
     // Get Distance
-    let distance = geolib.getDistance(
-      {latitude: location.lat, longitude: location.lon},
-      {latitude: station.lat, longitude: station.lon},
-    );
-    // Append it to Object
+    let distance = geolib.getDistance({
+      latitude: location.lat,
+      longitude: location.lon
+    }, {
+      latitude: station.lat,
+      longitude: station.lon
+    }, );
+    // Append Distance to Object
     station['distance'] = distance;
   });
 
   // Sort by Nearest
-  coastguard.sort(function(a, b) {
+  coastguard.sort(function (a, b) {
     if (a.distance < b.distance) return -1;
     if (a.distance > b.distance) return 1;
     return 0;
   });
 
+  // Return Closest Two Stations
   return coastguard.slice(0, 2);
 };
 
-// recommendation engine
-// returns complete object with recommendation
+/**
+ * Recommendation Engine, returns complete object with recommendation
+ * @param {Object} info the structured response object
+ */
 const recommend = info => {
   const reasons = [];
 
@@ -165,7 +139,13 @@ const recommend = info => {
     reasons,
   };
 
-  return {...info, recommendation};
+  return {
+    ...info,
+    recommendation
+  };
 };
 
+/**
+ * App Listener
+ */
 app.listen(port, () => console.log(`API Server running on port: ${port}`));

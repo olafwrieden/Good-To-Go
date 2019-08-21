@@ -101,7 +101,7 @@ const getInfo = event => {
 	let lon = event.latLng.lng();
 	displayLoading();
 	$("#latlng-header").empty();
-	fetch(`/dev/info?lat=${lat}&lon=${lon}`)
+	fetch(`/info?lat=${lat}&lon=${lon}`)
 		.then(response => {
 			if (response.status !== 200) {
 				console.log("There was a problem, status code: " + response.status);
