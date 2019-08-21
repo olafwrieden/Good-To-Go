@@ -1,56 +1,57 @@
 .drawer.is-visible {
-    width: 25%;
+	width: 25%;
 }
 
 .weather-title {
-    font-size: 20px;
+	font-size: 20px;
 }
 
 .drawer-button {
-    float: right;
-    outline: none !important;
-    padding: 10px;
-    background: rgb(0, 150, 136) !important;
+	float: right;
+	outline: none !important;
+	padding: 10px;
+	background: rgb(0, 150, 136) !important;
 }
 
 .drawer-header {
-    padding: 10px;
+	padding: 10px;
 }
+
 .mdl-data-table th {
-    color: #fff;
-    background: rgb(0, 150, 136);
+	color: #fff;
+	background: rgb(0, 150, 136);
 }
 
 .width_wrapper {
-    width: 80%;
-    margin: left;
+	width: 80%;
+	margin: left;
 }
 
 .gap_left {
-    padding-left: 10px;
-    margin: center;
+	padding-left: 10px;
+	margin: center;
 }
 
 #latlng-header {
-    margin: 10px;
-    float: left;
-    margin: 20px 10px 10px 5px;
+	margin: 10px;
+	float: left;
+	margin: 20px 10px 10px 5px;
 }
 
 #drawer-title {
-    padding: 10px;
+	padding: 10px;
 }
 
 .mdl-button--fab .mdl-button__ripple-container {
-    border-radius: 30% !important;
-    -webkit-mask-image: -webkit-radial-gradient(circle, #fff, #fff) !important;
+	border-radius: 30% !important;
+	-webkit-mask-image: -webkit-radial-gradient(circle, #fff, #fff) !important;
 }
 
 .mdl-button--fab.mdl-button--colored {
-    color: #fff !important;
+	color: #fff !important;
 }
 
 .mdl-data-table th:first-of-type {
-    padding-left: 24px;
-    padding-bottom: 10px;
+	padding-left: 24px;
+	padding-bottom: 10px;
 }
