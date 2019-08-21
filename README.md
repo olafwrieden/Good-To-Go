@@ -21,6 +21,16 @@ Left to Right: [Olaf Wrieden](https://www.linkedin.com/in/olafwrieden/), [Harris
 
 Our Minimum Viable Product (MVP) has been deployed to Heroku and can be accessed [here](https://good-2-go.herokuapp.com). It runs best in the Google Chrome browser. Simply follow the instructions on the page to see if your planned location is deemed 'safe'.
 
+<details>
+  <summary>Expand Usability Testing & Prototypes</summary>
+  <p>
+
+  ![lo-fi prototype](/screenshots/lo-fidelity-prototype.png)
+  ![hi-fi prototype](/screenshots/hi-fidelity-prototype.png)
+  
+  </p>
+</details>
+
 #### Initial Map
 A red dot indicates the current location of the user, provided they accepted the browser's request to relay its location.
 ![initial map](/screenshots/map.png)
