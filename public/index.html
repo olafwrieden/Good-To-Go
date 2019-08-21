@@ -1,225 +1,210 @@
 <!DOCTYPE html>
 <html style="overflow: hidden !important">
-    <head>
-        <title>Simple Map</title>
-        <meta name="viewport" content="initial-scale=1.0" />
-        <meta charset="utf-8" />
-        <style>
-            /* Always set the map height explicitly to define the size of the div
+
+<head>
+	<title>Good To Go?</title>
+	<meta name="viewport" content="initial-scale=1.0" />
+	<meta charset="utf-8" />
+	<style>
+		/* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-            #map {
-                height: 100%;
-            }
-            /* Optional: Makes the sample page fill the window. */
-            html,
-            body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		#map {
+			height: 100%;
+		}
 
-        <script src="https://kit.fontawesome.com/eaa176a6c6.js"></script>
+		/* Optional: Makes the sample page fill the window. */
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        <link
-            rel="stylesheet"
-            href="https://code.getmdl.io/1.3.0/material.teal-cyan.min.css"
-        />
-        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-        <script src="https://kit.fontawesome.com/1b7b8a6944.js"></script>
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        <script src="map.js"></script>
-    </head>
-    <!-- Uses a transparent header that draws on top of the layout's background -->
-    <style>
-        .demo-layout-transparent {
-            background: url("../assets/demos/transparent.jpg") center / cover;
-            color: green;
-        }
-        .demo-layout-transparent .mdl-layout__header,
-        .demo-layout-transparent .mdl-layout__drawer-button {
-            /* This background is dark, so we set text to white. Use 87% black instead if
+	<script src="https://kit.fontawesome.com/eaa176a6c6.js"></script>
+
+	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-cyan.min.css" />
+	<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<script src="https://kit.fontawesome.com/1b7b8a6944.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script src="map.js"></script>
+</head>
+<!-- Uses a transparent header that draws on top of the layout's background -->
+<style>
+	.demo-layout-transparent {
+		background: url("../assets/demos/transparent.jpg") center / cover;
+		color: green;
+	}
+
+	.demo-layout-transparent .mdl-layout__header,
+	.demo-layout-transparent .mdl-layout__drawer-button {
+		/* This background is dark, so we set text to white. Use 87% black instead if
        your background is light. */
-            color: blue;
-        }
-    </style>
-    <div class="mdl-layout--fixed-header">
-        <header class="mdl-layout__header is-casting-shadow">
-            <div class="mdl-layout__header-row" style="padding:20px">
-                <!-- Title class="mdl-layout-title"-->
-                <span><h2>Good to Go?</h2></span>
+		color: blue;
+	}
+</style>
+<div class="mdl-layout--fixed-header">
+	<header class="mdl-layout__header is-casting-shadow">
+		<div class="mdl-layout__header-row" style="padding:20px">
+			<!-- Title class="mdl-layout-title"-->
+			<span>
+				<h2>Good to Go?</h2>
+			</span>
 
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                <span class="mdl-layout-title"
-                    >Select a location in the ocean to check safety
-                    conditions</span
-                >
-                <!-- Navigation -->
-                <nav class="mdl-navigation"></nav>
-            </div>
-        </header>
-    </div>
-    <div class="mdl-layout mdl-js-layout mdl-layout--no-drawer-button">
-        <div
-            class="mdl-layout__drawer drawer"
-            style="height: calc(100% - 64px)"
-        >
-            <span id="drawer-title">
-                <div id="latlng-header"></div>
-                <!-- Colored FAB button with ripple -->
-                <button
-                    class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored drawer-button"
-                >
-                    <i class="material-icons">close</i>
-                </button>
-            </span>
+			<!-- Add spacer, to align navigation to the right -->
+			<div class="mdl-layout-spacer"></div>
+			<span class="mdl-layout-title">Select a location in the ocean to check safety
+				conditions</span>
+			<!-- Navigation -->
+			<nav class="mdl-navigation"></nav>
+		</div>
+	</header>
+</div>
+<div class="mdl-layout mdl-js-layout mdl-layout--no-drawer-button">
+	<div class="mdl-layout__drawer drawer" style="height: calc(100% - 64px)">
+		<span id="drawer-title">
+			<div id="latlng-header"></div>
+			<!-- Colored FAB button with ripple -->
+			<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored drawer-button">
+				<i class="material-icons">close</i>
+			</button>
+		</span>
 
-            <div id="loading"></div>
+		<div id="loading"></div>
 
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">
-                            Nearest Coastguard
-                        </th>
-                        <th><i class="fas fa-plus-square fa-x"></i></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td
-                            id="coastguard-location"
-                            class="mdl-data-table__cell--non-numeric"
-                        ></td>
-                        <td
-                            id="coastguard-distance"
-                            class="mdl-data-table__cell--non-numeric"
-                        ></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">
-                            Marine
-                        </th>
-                        <th><i class="fas fa-water"></i></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Swell Height (m)
-                        </td>
-                        <td id="swell_height"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Water Temperature (&deg;C)
-                        </td>
-                        <td id="water_temp"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">
-                            Weather
-                        </th>
-                        <th><i class="fas fa-wind"></i></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Description
-                        </td>
-                        <td id="text_description"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Rainfall (mm)
-                        </td>
-                        <td id="rainfall"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Wind Direction
-                        </td>
-                        <td id="wind_dir"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Wind Speed (km/h)
-                        </td>
-                        <td id="wind_speed"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Visibility (km)
-                        </td>
-                        <td id="visibility"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">
-                            Temperature (&deg;C)
-                        </th>
-                        <th>
-                            <i class="fas fa-thermometer-three-quarters"></i>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Apparent Temperature
-                        </td>
-                        <td id="temp_apparent"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Current Temperature
-                        </td>
-                        <td id="temp_current"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Temperature High
-                        </td>
-                        <td id="temp_high"></td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            Temperature Low
-                        </td>
-                        <td id="temp_low"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <main class="mdl-layout__content">
-            <body>
-                <div id="map" style="height: calc(100% - 64px)"></div>
-                <script
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5hbuIivbsrQjAX_yJKCG3A6AtxVzCg8o&callback=initMap"
-                    async
-                    defer
-                ></script>
-                <script src="scripts.js"></script>
-                <div id="dataField"></div>
-            </body>
-        </main>
-    </div>
+		<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			<thead>
+				<tr>
+					<th class="mdl-data-table__cell--non-numeric">
+						Nearest Coastguard
+					</th>
+					<th><i class="fas fa-plus-square fa-x"></i></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="coastguard-location" class="mdl-data-table__cell--non-numeric"></td>
+					<td id="coastguard-distance" class="mdl-data-table__cell--non-numeric"></td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			<thead>
+				<tr>
+					<th class="mdl-data-table__cell--non-numeric">
+						Marine
+					</th>
+					<th><i class="fas fa-water"></i></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Swell Height (m)
+					</td>
+					<td id="swell_height"></td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Water Temperature (&deg;C)
+					</td>
+					<td id="water_temp"></td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			<thead>
+				<tr>
+					<th class="mdl-data-table__cell--non-numeric">
+						Weather
+					</th>
+					<th><i class="fas fa-wind"></i></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Description
+					</td>
+					<td id="text_description"></td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Rainfall (mm)
+					</td>
+					<td id="rainfall"></td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Wind Direction
+					</td>
+					<td id="wind_dir"></td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Wind Speed (km/h)
+					</td>
+					<td id="wind_speed"></td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Visibility (km)
+					</td>
+					<td id="visibility"></td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			<thead>
+				<tr>
+					<th class="mdl-data-table__cell--non-numeric">
+						Temperature (&deg;C)
+					</th>
+					<th>
+						<i class="fas fa-thermometer-three-quarters"></i>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Apparent Temperature
+					</td>
+					<td id="temp_apparent"></td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Current Temperature
+					</td>
+					<td id="temp_current"></td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Temperature High
+					</td>
+					<td id="temp_high"></td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						Temperature Low
+					</td>
+					<td id="temp_low"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<main class="mdl-layout__content">
+
+		<body>
+			<div id="map" style="height: calc(100% - 64px)"></div>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5hbuIivbsrQjAX_yJKCG3A6AtxVzCg8o&callback=initMap"
+				async defer></script>
+			<script src="scripts.js"></script>
+			<div id="dataField"></div>
+		</body>
+	</main>
+</div>
+
 </html>

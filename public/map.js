@@ -1,14 +1,20 @@
 function initMap() {
-  var myStyles = [
-    {
-      featureType: "poi",
-      elementType: "labels",
-      stylers: [{ visibility: "off" }]
-    }
-  ];
+  // Custom Map Style to Remove Points of Interest (POI)
+  var myStyles = [{
+    featureType: "poi",
+    elementType: "labels",
+    stylers: [{
+      visibility: "off"
+    }]
+  }];
 
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -36.848461, lng: 174.763336 },
+    // Set Default Center for Map
+    center: {
+      lat: -36.848461,
+      lng: 174.763336
+    },
+    // Configure Map Options
     zoom: 9,
     zoomControl: true,
     mapTypeControl: false,
@@ -19,11 +25,12 @@ function initMap() {
     styles: myStyles
   });
 
+  // Target Marker Click Listener 
   google.maps.event.addListener(map, "click", event => {
     clearMarkers();
     addMarker(event.latLng);
   });
-  
+
   google.maps.event.addListener(map, "click", event => {
     clearMarkers();
     console.log(event.latLng);
